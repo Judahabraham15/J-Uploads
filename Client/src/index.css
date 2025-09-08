@@ -4,6 +4,23 @@
 @theme {
   --font-nunito:'Nunito', 'sans-serif'
 }
+@theme inline {
+  --animate-meteor-effect: meteor 5s linear infinite;
+  
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 0;
+    }
+  }
+}
 body{
     background-color:#0f172a;
     font-family: 'Nunito' , 'sans-serif'
