@@ -121,7 +121,7 @@ const FileUploader = ({ setHasUploaded, setRefreshKey }: FileUploaderProps) => {
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.code === "ERR_NETWORK") {
-        toast.error(" ❌ No internet connection. Please check your network.", {
+        toast.error(" ❌ Network Error.", {
           autoClose: 3000,
           position: "top-right",
           icon: false,
