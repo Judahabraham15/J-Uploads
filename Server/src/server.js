@@ -73,6 +73,23 @@ app.get("/file-info/:fileId", async (req, res) => {
       file.name && file.name.includes(".")
         ? file.name.split(".").pop().toLowerCase()
         : "";
-        const mimeSuffix = file.mime ? file.mime.split('/').pop() : ""
+    const mimeSuffix = file.mime ? file.mime.split("/").pop() : "";
+    const type =
+      ext || mimeSuffix || (file.fileType === "image" ? "image" : "file");
+    return res.status(200).json({
+      name: file.name,
+      imageKitUrl: file.url,
+      storedFilename: file.fileId,
+      size: file.size,
+      type,
+    });
+  } catch (error) {
+    console.error("file-info-error:", error);
+    res.status(500).json({ error: "Failed to Fetch file info" });
+  }
+});
+app.get("/recent-Uploads", async (req, res) => {
+  try {
+    const sessionId = req.query.sessionId;
   } catch (error) {}
 });
