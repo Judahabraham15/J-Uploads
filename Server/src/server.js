@@ -91,5 +91,65 @@ app.get("/file-info/:fileId", async (req, res) => {
 app.get("/recent-Uploads", async (req, res) => {
   try {
     const sessionId = req.query.sessionId;
-  } catch (error) {}
+    if (!sessionId) {
+      return res.status(400).json({ error: "Session ID required" });
+    }
+    const files = await imageKit.listFiles({
+      tags: ["jshare"], // Only filter by "jshare" tag
+      sort: "DESC_CREATED",
+    });
+
+    // Filter files to only those with the correct session tag
+    const shaped = files
+      .filter((f) => f.tags && f.tags.includes(`session_${sessionId}`))
+      .map((f) => {
+        const ext =
+          f.name && f.name.includes(".")
+            ? f.name.split(".").pop().toLowerCase()
+            : "";
+        const mimeSuffix = f.mime ? f.mime.split("/").pop() : "";
+        const type =
+          ext || mimeSuffix || (f.fileType === "image" ? "image" : "file");
+
+        return {
+          originalname: f.name,
+          imageKitUrl: f.url,
+          link: `${baseUrl}/download/${f.fileId}`,
+          type,
+          filename: f.fileId,
+        };
+      });
+    res.status(200).json(shaped);
+  } catch (error) {
+    console.error("recent-uploads error:", error);
+    res.status(500).json({ error: "Failed to fetch recent uploads. " });
+  }
+});
+//!FILE DELETION
+app.delete("/files/:fileId", async (req, res) => {
+  try {
+    const sessionId = req.query.sessionId;
+    if (!sessionId) {
+      return res.status(400).json({ error: "Session ID required" });
+    }
+
+    const fileId = req.params.fileId;
+    const file = await imageKit.getFileDetails(fileId);
+
+    if (!file) {
+      return res.status(404).json({ error: "File not found" });
+    }
+
+    if (!file.tags || !file.tags.includes(`session_${sessionId}`)) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden: You don’t own this file" });
+    }
+
+    await imageKit.deleteFile(fileId);
+    res.status(200).json({ message: "File deleted successfully" });
+  } catch (error) {
+    console.error("Delete File error:", error);
+    res.status(500).json({ error: "Failed to delete File" });
+  }
 });
