@@ -153,3 +153,12 @@ app.delete("/files/:fileId", async (req, res) => {
     res.status(500).json({ error: "Failed to delete File" });
   }
 });
+app.get("/download/:fileId", async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const file = await new imageKit.getFileDetails(fileId);
+    if (!file) {
+      return res.status(404).json({ error: "File Not Found" });
+    }
+  } catch (error) {}
+});
