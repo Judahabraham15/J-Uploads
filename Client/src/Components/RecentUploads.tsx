@@ -9,6 +9,7 @@ import { BsTrash3 } from "react-icons/bs";
 import { FiCopy, FiExternalLink } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { Meteors } from "../lib/Meteors";
 
 interface FileMetaData {
   originalname: string;
@@ -24,6 +25,7 @@ interface RecentUploadProps {
 const RecentUploads = ({ refreshKey }: RecentUploadProps) => {
   const [recentUploads, setrecentUploads] = useState<FileMetaData[]>([]);
   const [sessionId, setsessionId] = useState<string>("");
+
 
   useEffect(() => {
     const id = localStorage.getItem("sessionId");
@@ -141,6 +143,9 @@ const RecentUploads = ({ refreshKey }: RecentUploadProps) => {
               className="bg-[#181c2f] border rounded-xl shadow-lg px-5 p-4 truncate sm:p-6 md:p-8 flex flex-col items-start transition-transform hover:scale-105 hover:shadow-xl"
               style={{ borderColor: "rgba(59, 130, 246, 0.40)" }}
             >
+                          <div className="absolute inset-0 z-0 pointer-events-none">
+                            <Meteors number={20} />
+                          </div>
               <span
                 className="mb-2 sm:mb-3 border border-blue-500 p-2.5 sm:p-3 rounded-full flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-13 md:h-13"
                 style={{ background: "rgba(59, 130, 246, 0.15)" }}
