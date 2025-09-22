@@ -2,12 +2,12 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-
 import FileUploader from "./Pages/FileUploader";
 import DownloadPage from "./Pages/DownloadPage";
 import Cards from "./Pages/Cards";
 import RecentUploads from "./Components/RecentUploads";
 import Layout from "./Layout/Layout";
+import Lenis from "lenis";
 
 if (!localStorage.getItem("sessionId")) {
   localStorage.setItem("sessionId", crypto.randomUUID());
@@ -23,8 +23,21 @@ const App = () => {
     localStorage.setItem("hasUploaded", hasUploaded.toString());
   }, [hasUploaded]);
 
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 3,
+      // smooth: true,
+    });
+    function raf(time: number): void {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
+  }, []);
+
   return (
-    <>
+    <div>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route
@@ -63,7 +76,7 @@ const App = () => {
         }}
         closeButton={false}
       />
-    </>
+    </div>
   );
 };
 
