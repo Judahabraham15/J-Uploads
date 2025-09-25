@@ -160,5 +160,21 @@ app.get("/download/:fileId", async (req, res) => {
     if (!file) {
       return res.status(404).json({ error: "File Not Found" });
     }
-  } catch (error) {}
+    //Fetch file from ImageKit URL
+    const response = await fetch(file.url);
+    const buffer = await response.arrayBuffer();
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+    res.setHeader("Content-Type", file.mime || "application/octet-stream");
+    res.send(Buffer.from(buffer));
+  } catch (error) {
+    console.error("Download Error:", err);
+    res.status(500).json({ error: "Download Failed" });
+  }
+});
+app.get("/", (req, res) => {
+  res.send("Server is Running!!");
+});
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}`);
 });
