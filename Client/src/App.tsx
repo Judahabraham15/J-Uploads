@@ -31,7 +31,7 @@ const App = () => {
     function raf(time: number): void {
       lenis.raf(time);
       requestAnimationFrame(raf);
-    }
+    }                                
     requestAnimationFrame(raf);
     return () => lenis.destroy();
   }, []);
