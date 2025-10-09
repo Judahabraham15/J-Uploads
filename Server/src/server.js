@@ -18,6 +18,27 @@ const imageKit = new ImageKit({
 
 //*Middleware
 app.use(cors({ origin: "https://j-uploadss.vercel.app" }));
+const allowedOrigins = [
+  "https://j-uploadss.vercel.app", // your deployed frontend
+  "http://localhost:5173", // local dev (Vite)
+  "http://localhost:3000"  
+];
+
+// ✅ Setup CORS middleware
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow non-browser requests
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 //* Multer configuration (Store in memory)
 const storage = multer.memoryStorage({});
