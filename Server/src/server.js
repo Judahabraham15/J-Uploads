@@ -17,9 +17,9 @@ const imageKit = new ImageKit({
 
 
 //*Middleware
-app.use(cors({ origin: "https://j-upload.vercel.app/" }));
+app.use(cors({ origin: "https://j-upload.vercel.app" }));
 const allowedOrigins = [
-  "https://j-upload.vercel.app/", // your deployed frontend
+  "https://j-upload.vercel.app", // your deployed frontend
   "http://localhost:5173", // local dev (Vite)
   "http://localhost:3000"  
 ];
