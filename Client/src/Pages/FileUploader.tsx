@@ -286,7 +286,7 @@ const FileUploader = ({ setHasUploaded, setRefreshKey }: FileUploaderProps) => {
           </div>
         </motion.div>
       )}
-      {/* <AnimatePresence></AnimatePresence> */}
+      <AnimatePresence></AnimatePresence>
     </div>
   );
 };
