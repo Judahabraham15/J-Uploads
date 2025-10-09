@@ -82,7 +82,7 @@ const FileUploader = ({ setHasUploaded, setRefreshKey }: FileUploaderProps) => {
     formData.append("sessionId" , sessionId)
     try {
       const response = await Axios.post(
-        "https://jshare-server.onrender.com/upload",
+        "https://j-uploads-1.onrender.com/upload",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -286,7 +286,7 @@ const FileUploader = ({ setHasUploaded, setRefreshKey }: FileUploaderProps) => {
           </div>
         </motion.div>
       )}
-      <AnimatePresence></AnimatePresence>
+      {/* <AnimatePresence></AnimatePresence> */}
     </div>
   );
 };

@@ -40,7 +40,7 @@ const RecentUploads = ({ refreshKey }: RecentUploadProps) => {
       }
       try {
         const response = await Axios.get(
-          `https://jshare-server.onrender.com/recent-Uploads?sessionId=${encodeURIComponent(
+          `https://j-uploads-1.onrender.com/recent-Uploads?sessionId=${encodeURIComponent(
             sessionId
           )}`
         ); //! Added sessionId as a query parameter.
@@ -103,7 +103,7 @@ const RecentUploads = ({ refreshKey }: RecentUploadProps) => {
     try {
       //! Added the sessionId as a query parameter.
       await Axios.delete(
-        `https://jshare-server.onrender.com/files/${encodeURIComponent(
+        `https://j-uploads-1.onrender.com/files/${encodeURIComponent(
           filename
         )}?sessionId=${encodeURIComponent(sessionId)}`
       );
