@@ -5,7 +5,7 @@ const ImageKit = require("imagekit");
 require("dotenv").config();
 
 const app = express();
-const baseUrl = process.env.BACKEND_URL || "https://jshare-server.onrender";
+const baseUrl = process.env.BACKEND_URL || "https://j-uploads-1.onrender.com";
 const imageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
