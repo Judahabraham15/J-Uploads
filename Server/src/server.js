@@ -177,21 +177,26 @@ app.delete("/files/:fileId", async (req, res) => {
 app.get("/download/:fileId", async (req, res) => {
   try {
     const fileId = req.params.fileId;
-    const file = await new imageKit.getFileDetails(fileId);
+    const file = await imageKit.getFileDetails(fileId); // ✅ fixed
+
     if (!file) {
       return res.status(404).json({ error: "File Not Found" });
     }
-    //Fetch file from ImageKit URL
+
+    // Fetch the file from ImageKit’s CDN URL
     const response = await fetch(file.url);
     const buffer = await response.arrayBuffer();
+
     res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
     res.setHeader("Content-Type", file.mime || "application/octet-stream");
+
     res.send(Buffer.from(buffer));
   } catch (error) {
-    console.error("Download Error:", err);
+    console.error("Download Error:", error); // ✅ fixed
     res.status(500).json({ error: "Download Failed" });
   }
 });
+
 app.get("/", (req, res) => {
   res.send("Server is Running!!");
 });
