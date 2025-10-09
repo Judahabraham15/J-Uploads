@@ -17,7 +17,7 @@ const imageKit = new ImageKit({
 // const fileMetadata = {};
 
 //*Middleware
-app.use(cors({ origin: "" }));
+app.use(cors({ origin: "https://j-uploadss.vercel.app/" }));
 app.use(express.json());
 //* Multer configuration (Store in memory)
 const storage = multer.memoryStorage({});
