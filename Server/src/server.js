@@ -14,7 +14,7 @@ const imageKit = new ImageKit({
 //!FUCK THIS WE ARENT USING IT NO MORE!
 //? Simple in-memory metadata store:
 //? key = storedFilename (what multer saves), value = { originalName, size, type }
-// const fileMetadata = {};
+
 
 //*Middleware
 app.use(cors({ origin: "https://j-uploadss.vercel.app" }));
