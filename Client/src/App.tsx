@@ -8,6 +8,7 @@ import Cards from "./Pages/Cards";
 import RecentUploads from "./Components/RecentUploads";
 import Layout from "./Layout/Layout";
 import Lenis from "lenis";
+import NotFound from "./Pages/NotFound";
 
 if (!localStorage.getItem("sessionId")) {
   localStorage.setItem("sessionId", crypto.randomUUID());
@@ -31,7 +32,7 @@ const App = () => {
     function raf(time: number): void {
       lenis.raf(time);
       requestAnimationFrame(raf);
-    }                                
+    }
     requestAnimationFrame(raf);
     return () => lenis.destroy();
   }, []);
@@ -54,7 +55,9 @@ const App = () => {
             }
           />
           <Route path="download/:fileId" element={<DownloadPage />} />
+            <Route path="*" element={<NotFound />} />
         </Route>
+      
       </Routes>
 
       <ToastContainer
